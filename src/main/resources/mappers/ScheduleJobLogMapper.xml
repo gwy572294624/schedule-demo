@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.schedule.mapper.ScheduleJobLogMapper">
+  <resultMap id="resultMap" type="com.schedule.dao.ScheduleJobLogDO">
+    <id column="log_id" jdbcType="BIGINT" property="logId" />
+    <result column="job_id" jdbcType="BIGINT" property="jobId" />
+    <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
+    <result column="method_name" jdbcType="VARCHAR" property="methodName" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="error" jdbcType="VARCHAR" property="error" />
+    <result column="times" jdbcType="INTEGER" property="times" />
+    <result column="ctime" jdbcType="BIGINT" property="ctime" />
+    <result column="yn" jdbcType="CHAR" property="yn" />
+    <result column="utime" jdbcType="BIGINT" property="utime" />
+  </resultMap>
+  <sql id="baseColumnList">
+    log_id, job_id, bean_name, method_name, params, status, error, times, ctime, yn, 
+    utime
+  </sql>
+  <sql id="whereClause">
+    <where>
+      <if test="jobId != null and jobId != '' or jobId == 0">
+         AND job_id=#{jobId,jdbcType=BIGINT}
+      </if>
+      <if test="beanName != null and beanName != '' or beanName == 0">
+         AND bean_name=#{beanName,jdbcType=VARCHAR}
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+         AND method_name=#{methodName,jdbcType=VARCHAR}
+      </if>
+      <if test="params != null and params != '' or params == 0">
+         AND params=#{params,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null and status != '' or status == 0">
+         AND status=#{status,jdbcType=TINYINT}
+      </if>
+      <if test="error != null and error != '' or error == 0">
+         AND error=#{error,jdbcType=VARCHAR}
+      </if>
+      <if test="times != null and times != '' or times == 0">
+         AND times=#{times,jdbcType=INTEGER}
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+         AND ctime=#{ctime,jdbcType=BIGINT}
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+         AND yn=#{yn,jdbcType=CHAR}
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+         AND utime=#{utime,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+  <select id="select" parameterType="com.schedule.dao.ScheduleJobLogDO" resultMap="resultMap">
+    select
+    <include refid="baseColumnList" />
+    from tb_schedule_job_log
+    <include refid="whereClause" />
+  </select>
+  <select id="count" parameterType="com.schedule.dao.ScheduleJobLogDO" resultType="java.lang.Long">
+    select count(1) from tb_schedule_job_log
+    <include refid="whereClause" />
+  </select>
+  <select id="selectByPK" parameterType="java.lang.Long" resultMap="resultMap">
+    select 
+    <include refid="baseColumnList" />
+    from tb_schedule_job_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.Long">
+    delete from tb_schedule_job_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="log_id" keyProperty="logId" parameterType="com.schedule.dao.ScheduleJobLogDO" useGeneratedKeys="true">
+    insert into tb_schedule_job_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobId != null and jobId != '' or jobId == 0">
+        job_id,
+      </if>
+      <if test="beanName != null and beanName != '' or beanName == 0">
+        bean_name,
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+        method_name,
+      </if>
+      <if test="params != null and params != '' or params == 0">
+        params,
+      </if>
+      <if test="status != null and status != '' or status == 0">
+        status,
+      </if>
+      <if test="error != null and error != '' or error == 0">
+        error,
+      </if>
+      <if test="times != null and times != '' or times == 0">
+        times,
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+        ctime,
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+        yn,
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+        utime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobId != null and jobId != '' or jobId == 0">
+        #{jobId,jdbcType=BIGINT},
+      </if>
+      <if test="beanName != null and beanName != '' or beanName == 0">
+        #{beanName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null and params != '' or params == 0">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null and status != '' or status == 0">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="error != null and error != '' or error == 0">
+        #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null and times != '' or times == 0">
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+        #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+        #{yn,jdbcType=CHAR},
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+        #{utime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPK" parameterType="com.schedule.dao.ScheduleJobLogDO">
+    update tb_schedule_job_log
+    <set>
+      <if test="jobId != null and jobId != '' or jobId == 0">
+        job_id = #{jobId,jdbcType=BIGINT},
+      </if>
+      <if test="beanName != null and beanName != '' or beanName == 0">
+        bean_name = #{beanName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null and params != '' or params == 0">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null and status != '' or status == 0">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="error != null and error != '' or error == 0">
+        error = #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null and times != '' or times == 0">
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+        ctime = #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+        yn = #{yn,jdbcType=CHAR},
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+        utime = #{utime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+</mapper>

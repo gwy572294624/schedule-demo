@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.schedule.mapper.ScheduleJobMapper">
+  <resultMap id="resultMap" type="com.schedule.dao.ScheduleJobDO">
+    <id column="job_id" jdbcType="BIGINT" property="jobId" />
+    <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
+    <result column="method_name" jdbcType="VARCHAR" property="methodName" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
+    <result column="yn" jdbcType="CHAR" property="yn" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="ctime" jdbcType="BIGINT" property="ctime" />
+    <result column="utime" jdbcType="BIGINT" property="utime" />
+  </resultMap>
+  <sql id="baseColumnList">
+    job_id, bean_name, method_name, params, cron_expression, yn, remark, ctime, utime
+  </sql>
+  <sql id="whereClause">
+    <where>
+      <if test="beanName != null and beanName != '' or beanName == 0">
+         AND bean_name=#{beanName,jdbcType=VARCHAR}
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+         AND method_name=#{methodName,jdbcType=VARCHAR}
+      </if>
+      <if test="params != null and params != '' or params == 0">
+         AND params=#{params,jdbcType=VARCHAR}
+      </if>
+      <if test="cronExpression != null and cronExpression != '' or cronExpression == 0">
+         AND cron_expression=#{cronExpression,jdbcType=VARCHAR}
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+         AND yn=#{yn,jdbcType=CHAR}
+      </if>
+      <if test="remark != null and remark != '' or remark == 0">
+         AND remark=#{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+         AND ctime=#{ctime,jdbcType=BIGINT}
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+         AND utime=#{utime,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+  <select id="select" parameterType="com.schedule.dao.ScheduleJobDO" resultMap="resultMap">
+    select
+    <include refid="baseColumnList" />
+    from tb_schedule_job
+    <include refid="whereClause" />
+  </select>
+  <select id="count" parameterType="com.schedule.dao.ScheduleJobDO" resultType="java.lang.Long">
+    select count(1) from tb_schedule_job
+    <include refid="whereClause" />
+  </select>
+  <select id="selectByPK" parameterType="java.lang.Long" resultMap="resultMap">
+    select 
+    <include refid="baseColumnList" />
+    from tb_schedule_job
+    where job_id = #{jobId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.Long">
+    delete from tb_schedule_job
+    where job_id = #{jobId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="job_id" keyProperty="jobId" parameterType="com.schedule.dao.ScheduleJobDO" useGeneratedKeys="true">
+    insert into tb_schedule_job
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="beanName != null and beanName != '' or beanName == 0">
+        bean_name,
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+        method_name,
+      </if>
+      <if test="params != null and params != '' or params == 0">
+        params,
+      </if>
+      <if test="cronExpression != null and cronExpression != '' or cronExpression == 0">
+        cron_expression,
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+        yn,
+      </if>
+      <if test="remark != null and remark != '' or remark == 0">
+        remark,
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+        ctime,
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+        utime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="beanName != null and beanName != '' or beanName == 0">
+        #{beanName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null and params != '' or params == 0">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null and cronExpression != '' or cronExpression == 0">
+        #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+        #{yn,jdbcType=CHAR},
+      </if>
+      <if test="remark != null and remark != '' or remark == 0">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+        #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+        #{utime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPK" parameterType="com.schedule.dao.ScheduleJobDO">
+    update tb_schedule_job
+    <set>
+      <if test="beanName != null and beanName != '' or beanName == 0">
+        bean_name = #{beanName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null and methodName != '' or methodName == 0">
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null and params != '' or params == 0">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null and cronExpression != '' or cronExpression == 0">
+        cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="yn != null and yn != '' or yn == 0">
+        yn = #{yn,jdbcType=CHAR},
+      </if>
+      <if test="remark != null and remark != '' or remark == 0">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null and ctime != '' or ctime == 0">
+        ctime = #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="utime != null and utime != '' or utime == 0">
+        utime = #{utime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where job_id = #{jobId,jdbcType=BIGINT}
+  </update>
+</mapper>
