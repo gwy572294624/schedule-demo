@@ -54,7 +54,7 @@ public class ScheduleUtils {
             scheduler.scheduleJob(jobDetail, trigger);
 
             //创建完成立即执行
-            run(scheduler,scheduleJob);
+            //run(scheduler,scheduleJob);
         } catch (SchedulerException e) {
             e.printStackTrace();
         }

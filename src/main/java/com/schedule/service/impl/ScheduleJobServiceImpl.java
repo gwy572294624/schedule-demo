@@ -26,7 +26,9 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
     private Scheduler scheduler;
     @Override
     public List<ScheduleJobDO> getAll(){
-        return scheduleJobMapper.select(new ScheduleJobDO());
+        ScheduleJobDO scheduleJobDO = new ScheduleJobDO();
+        scheduleJobDO.setYn("y");
+        return scheduleJobMapper.select(scheduleJobDO);
     }
 
     @Override
